@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اليوم الوطني السعودي</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc;
+            color: #4a2c2a;
+            text-align: center;
+        }
+
+        h1 {
+            color: #006400;
+        }
+
+        .question {
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #4a2c2a;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        button {
+            background-color: #4a2c2a;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #006400;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #006400;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .foundation {
+            margin-top: 30px;
+            font-size: 1.2em;
+            color: #006400;
+        }
+
+        .anthem {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .anthem div {
+            margin: 0 20px;
+        }
+
+        .anthem p {
+            line-height: 1.8;
+            font-weight: bold;
+            color: #4a2c2a;
+            font-size: 1.2em;
+        }
+
+        img {
+            margin-top: 20px;
+            width: 150px;
+            animation: wave 2s infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
+            100% { transform: rotate(0deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>اليوم الوطني السعودي - 94 سنة</h1>
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/320px-Flag_of_Saudi_Arabia.svg.png" alt="علم السعودية يرفرف">
+
+        <div id="quiz">
+            <div class="question" id="question1">
+                <p>متى تم توحيد المملكة العربية السعودية؟</p>
+                <button onclick="answerQuestion(1, true)">1932</button>
+                <button onclick="answerQuestion(1, false)">1945</button>
+            </div>
+
+            <div class="question" id="question2" style="display:none;">
+                <p>من هو مؤسس المملكة العربية السعودية؟</p>
+                <button onclick="answerQuestion(2, true)">الملك عبدالعزيز آل سعود</button>
+                <button onclick="answerQuestion(2, false)">الملك فيصل بن عبدالعزيز</button>
+            </div>
+
+            <div class="question" id="question3" style="display:none;">
+                <p>ما هو شعار المملكة العربية السعودية؟</p>
+                <button onclick="answerQuestion(3, true)">النخلة والسيفين المتقاطعين</button>
+                <button onclick="answerQuestion(3, false)">الناقة والصحراء</button>
+            </div>
+
+            <div class="question" id="question4" style="display:none;">
+                <p>ما هو لون العلم السعودي؟</p>
+                <button onclick="answerQuestion(4, true)">أخضر</button>
+                <button onclick="answerQuestion(4, false)">أزرق</button>
+            </div>
+
+            <div class="question" id="question5" style="display:none;">
+                <p>في أي يوم يتم الاحتفال باليوم الوطني السعودي؟</p>
+                <button onclick="answerQuestion(5, true)">23 سبتمبر</button>
+                <button onclick="answerQuestion(5, false)">1 نوفمبر</button>
+            </div>
+        </div>
+
+        <div class="message" id="message" style="display:none;"></div>
+        <button id="restart" style="display:none;" onclick="resetQuiz()">العودة من جديد</button>
+    </div>
+
+    <div class="foundation">حجر الأساس: وحدة وأصالة، وقيم عريقة عبر الزمن.</div>
+
+    <script>
+        let currentQuestion = 1;
+        let correctAnswers = 0;
+        let totalQuestions = 5;
+
+        function answerQuestion(questionNumber, isCorrect) {
+            if (isCorrect) {
+                correctAnswers += 1; // إذا كانت الإجابة صحيحة
+            }
+
+            document.getElementById(`question${questionNumber}`).style.display = "none"; // إخفاء السؤال الحالي
+
+            if (questionNumber < totalQuestions) {
+                currentQuestion += 1;
+                document.getElementById(`question${currentQuestion}`).style.display = "block"; // إظهار السؤال التالي
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            let message = `لقد جاوبت على ${correctAnswers} من ${totalQuestions} أسئلة.`;
+            
+            if (correctAnswers === totalQuestions) {
+                message = `لقد فزت يالبا سعودي أسمر وعيونه زرقا!`;
+            }
+
+            document.getElementById('message').innerText = message;
+            document.getElementById('message').style.display = "block";
+            document.getElementById('restart').style.display = "block"; // عرض زر العودة من جديد
+        }
+
+        function resetQuiz() {
+            correctAnswers = 0;
+            currentQuestion = 1;
+            document.getElementById('message').style.display = "none";
+            document.getElementById('restart').style.display = "none";
+            document.getElementById('question1').style.display = "block";
+
+            // إعادة إخفاء جميع الأسئلة الأخرى
+            for (let i = 2; i <= 5; i++) {
+                document.getElementById(`question${i}`).style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
